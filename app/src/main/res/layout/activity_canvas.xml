@@ -1,29 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0A0A0D">
+    android:background="#0E0E12">
 
-    <include
-        android:id="@+id/toolbarView"
-        layout="@layout/view_toolbar"
+    <!-- MENUS DU HAUT (TEXTUELS) -->
+    <LinearLayout
+        android:id="@+id/top_menu_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_height="42dp"
+        android:layout_alignParentTop="true"
+        android:background="#18181E"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
 
+        <TextView
+            android:id="@+id/menu_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Fichier"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/menu_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Édition"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/menu_layers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Calques"
+            android:textColor="#CCCCCC"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- BOUTON PLEIN ÉCRAN -->
+        <TextView
+            android:id="@+id/btn_fullscreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2A2A35"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:text="Plein Écran"
+            android:textColor="#4CAF50"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- ZONE DE DESSIN CENTRAL -->
     <com.virtix.nastapaint.ui.views.MangaCanvasView
         android:id="@+id/mangaCanvasView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbarView"
-        android:background="#FFFFFF" />
+        android:layout_above="@id/bottom_status_bar"
+        android:layout_below="@id/top_menu_bar" />
 
-    <FrameLayout
-        android:id="@+id/layerPanelView"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
+    <!-- BARRE DU BAS -->
+    <LinearLayout
+        android:id="@+id/bottom_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_alignParentBottom="true"
+        android:background="#18181E"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:id="@+id/txt_brush_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plume G • 8px"
+            android:textColor="#888888"
+            android:textSize="12sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/txt_canvas_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Projet Actif"
+            android:textColor="#888888"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- BOUTON FLOTTANT RESTAURATION (MASQUÉ PAR DÉFAUT) -->
+    <TextView
+        android:id="@+id/btn_restore_ui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@id/toolbarView"
-        android:background="#1F1F28"
+        android:layout_margin="12dp"
+        android:background="#CC18181E"
+        android:padding="10dp"
+        android:text="👁 Menu"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
         android:visibility="gone" />
+
 </RelativeLayout>
