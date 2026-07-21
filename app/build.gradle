@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.virtix.nastapaint'
+    namespace "com.virtix.nastapaint"
     compileSdk 33
 
     defaultConfig {
