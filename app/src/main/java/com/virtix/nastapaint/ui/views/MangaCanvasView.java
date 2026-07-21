@@ -20,7 +20,6 @@ public class MangaCanvasView extends View {
     private Paint drawPaint;
     private Paint canvasPaint;
 
-    // Matrice pour la gestion du Zoom et du Pan
     private Matrix transformMatrix = new Matrix();
     private Matrix inverseMatrix = new Matrix();
     private ScaleGestureDetector scaleDetector;
@@ -66,7 +65,7 @@ public class MangaCanvasView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
-        canvas.concat(transformMatrix); // Applique le Zoom/Pan au canevas
+        canvas.concat(transformMatrix);
         
         if (canvasBitmap != null) {
             canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
@@ -88,7 +87,6 @@ public class MangaCanvasView extends View {
             return true;
         }
 
-        // Convertit les coordonnées écran en coordonnées réelles sur le Bitmap
         transformMatrix.invert(inverseMatrix);
         float[] pts = new float[]{event.getX(), event.getY()};
         inverseMatrix.mapPoints(pts);
@@ -132,7 +130,7 @@ public class MangaCanvasView extends View {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(0.5f, Math.min(scaleFactor, 5.0f)); // Zoom entre 50% et 500%
+            scaleFactor = Math.max(0.5f, Math.min(scaleFactor, 5.0f));
 
             focusX = detector.getFocusX();
             focusY = detector.getFocusY();
@@ -152,6 +150,13 @@ public class MangaCanvasView extends View {
             drawPaint.setColor(Color.WHITE);
         } else {
             drawPaint.setColor(Color.BLACK);
+        }
+    }
+
+    public void clearCanvas() {
+        if (drawCanvas != null) {
+            drawCanvas.drawColor(Color.WHITE);
+            invalidate();
         }
     }
 
