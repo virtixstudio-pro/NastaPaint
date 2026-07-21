@@ -30,7 +30,6 @@ public class MangaCanvasView extends View {
         drawPath = new Path();
         drawPaint = new Paint();
         
-        // Configuration du pinceau de base (Rendu type Plume G)
         drawPaint.setColor(Color.BLACK);
         drawPaint.setAntiAlias(true);
         drawPaint.setStrokeWidth(8f);
@@ -44,11 +43,10 @@ public class MangaCanvasView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if (w > 0 && h > 0) {
-            // Création de la surface de dessin en mémoire HD
+        if (w > 0 && h > 0 && canvasBitmap == null) {
             canvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             drawCanvas = new Canvas(canvasBitmap);
-            drawCanvas.drawColor(Color.WHITE); // Fond blanc de la planche
+            drawCanvas.drawColor(Color.WHITE);
         }
     }
 
@@ -58,7 +56,6 @@ public class MangaCanvasView extends View {
         if (canvasBitmap != null) {
             canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         }
-        // Dessine le trait en cours de tracé en temps réel
         canvas.drawPath(drawPath, drawPaint);
     }
 
@@ -79,7 +76,6 @@ public class MangaCanvasView extends View {
                 float dx = Math.abs(touchX - lastX);
                 float dy = Math.abs(touchY - lastY);
                 if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-                    // Lissage de courbe Bézier pour un trait fluide
                     drawPath.quadTo(lastX, lastY, (touchX + lastX) / 2, (touchY + lastY) / 2);
                     lastX = touchX;
                     lastY = touchY;
@@ -88,8 +84,9 @@ public class MangaCanvasView extends View {
 
             case MotionEvent.ACTION_UP:
                 drawPath.lineTo(touchX, touchY);
-                // Validation du trait sur le bitmap permanent
-                drawCanvas.drawPath(drawPath, drawPaint);
+                if (drawCanvas != null) {
+                    drawCanvas.drawPath(drawPath, drawPaint);
+                }
                 drawPath.reset();
                 break;
 
@@ -97,7 +94,7 @@ public class MangaCanvasView extends View {
                 return false;
         }
 
-        invalidate(); // Force la redessin de la vue
+        invalidate();
         return true;
     }
 
@@ -114,5 +111,9 @@ public class MangaCanvasView extends View {
             drawCanvas.drawColor(Color.WHITE);
             invalidate();
         }
+    }
+
+    public Bitmap getCanvasBitmap() {
+        return canvasBitmap;
     }
 }

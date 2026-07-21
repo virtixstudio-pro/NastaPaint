@@ -8,15 +8,34 @@
     android:paddingStart="8dp"
     android:paddingEnd="8dp">
 
+    <!-- Bouton Retour -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_revert" />
+
+    <!-- Bouton Sauvegarder -->
+    <ImageButton
+        android:id="@+id/btn_save"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@android:drawable/ic_menu_save" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="#333333" />
+
     <ImageButton android:id="@+id/btn_pen" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_edit" />
     <ImageButton android:id="@+id/btn_eraser" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_delete" />
     <ImageButton android:id="@+id/btn_clear" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_close_clear_cancel" />
-    
-    <ImageButton android:id="@+id/btn_size_minus" android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_input_add" />
-    <TextView android:id="@+id/txt_size" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="15" android:textColor="#FFFFFF" />
-    <ImageButton android:id="@+id/btn_size_plus" android:layout_width="32dp" android:layout_height="32dp" android:src="@android:drawable/ic_input_add" />
 
-    <ImageButton android:id="@+id/btn_undo" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_revert" />
+    <ImageButton android:id="@+id/btn_undo" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_media_previous" />
     <ImageButton android:id="@+id/btn_redo" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_media_next" />
     <ImageButton android:id="@+id/btn_import" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_gallery" />
     <ImageButton android:id="@+id/btn_layers" android:layout_width="36dp" android:layout_height="36dp" android:background="?attr/selectableItemBackgroundBorderless" android:src="@android:drawable/ic_menu_slideshow" />
