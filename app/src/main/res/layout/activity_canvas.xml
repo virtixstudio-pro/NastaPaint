@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F12"
+    android:keepScreenOn="true">
+
+    <com.virtix.nastapaint.core.MangaCanvasView
+        android:id="@+id/mangaCanvasView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/hudOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <com.virtix.nastapaint.ui.views.ToolbarView
+            android:id="@+id/toolbarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="24dp" />
+
+        <com.virtix.nastapaint.ui.views.LayerPanelView
+            android:id="@+id/layerPanelView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:layout_margin="12dp" />
+
+    </FrameLayout>
+
+</RelativeLayout>

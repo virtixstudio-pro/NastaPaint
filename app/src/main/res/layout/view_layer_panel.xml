@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#1A1A22"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calques"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <LinearLayout
+        android:id="@+id/layers_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
+    <Button
+        android:id="@+id/btn_add_layer"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:text="+ Nouveau calque"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/tool_button_bg"
+        android:layout_marginTop="4dp" />
+</LinearLayout>
