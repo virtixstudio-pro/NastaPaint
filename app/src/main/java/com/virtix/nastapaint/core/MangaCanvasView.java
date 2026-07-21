@@ -19,11 +19,11 @@ import java.util.List;
 public class MangaCanvasView extends View {
 
     private LayerManager layerManager;
-    private final Paint layerPaint;
-    private final Paint drawPaint;
+    private Paint layerPaint;
+    private Paint drawPaint;
     private boolean eraserMode = false;
 
-    private final Path currentPath;
+    private Path currentPath;
     private final PointF lastPoint = new PointF();
 
     private ScaleGestureDetector scaleGestureDetector;
@@ -244,14 +244,14 @@ public class MangaCanvasView extends View {
 
     public void undo() {
         if (undoRedoManager.canUndo()) {
-            undoRedoManager.undo(layerManager.getActiveLayer().bitmap);
+            undoRedoManager.undo(layerManager.getActiveLayer().bitmap, null);
             invalidate();
         }
     }
 
     public void redo() {
         if (undoRedoManager.canRedo()) {
-            undoRedoManager.redo(layerManager.getActiveLayer().bitmap);
+            undoRedoManager.redo(layerManager.getActiveLayer().bitmap, null);
             invalidate();
         }
     }
