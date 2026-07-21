@@ -37,9 +37,6 @@ public class MangaCanvasView extends View {
         }
     }
 
-    /**
-     * Importe un Bitmap externe sur le canevas principal
-     */
     public void importBitmap(Bitmap importedBitmap) {
         if (importedBitmap == null) return;
 
@@ -49,9 +46,8 @@ public class MangaCanvasView extends View {
         }
 
         if (drawCanvas != null) {
-            // Dessine l'image importée centrée/redimensionnée sur le canevas
             drawCanvas.drawBitmap(importedBitmap, 0, 0, null);
-            invalidate(); // Rafraîchit l'affichage
+            invalidate();
         }
     }
 }
