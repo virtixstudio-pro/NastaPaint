@@ -13,8 +13,14 @@ import com.virtix.nastapaint.tools.ToolManager;
 
 public class ToolbarView extends LinearLayout {
 
+    public interface OnToolbarActionListener {
+        void onImportImageRequested();
+        void onToggleLayersRequested();
+    }
+
     private ToolManager toolManager;
     private MangaCanvasView canvasView;
+    private OnToolbarActionListener actionListener;
 
     private Button penButton;
     private Button eraserButton;
@@ -24,6 +30,8 @@ public class ToolbarView extends LinearLayout {
     private TextView sizeText;
     private Button undoButton;
     private Button redoButton;
+    private Button importButton;
+    private Button layersButton;
 
     public ToolbarView(Context context) {
         super(context);
@@ -46,6 +54,8 @@ public class ToolbarView extends LinearLayout {
         sizeText = findViewById(R.id.txt_size);
         undoButton = findViewById(R.id.btn_undo);
         redoButton = findViewById(R.id.btn_redo);
+        importButton = findViewById(R.id.btn_import);
+        layersButton = findViewById(R.id.btn_layers);
 
         penButton.setOnClickListener(v -> setTool(ToolManager.Tool.PEN));
         eraserButton.setOnClickListener(v -> setTool(ToolManager.Tool.ERASER));
@@ -55,18 +65,30 @@ public class ToolbarView extends LinearLayout {
         increaseSizeButton.setOnClickListener(v -> adjustStrokeWidth(1f));
 
         undoButton.setOnClickListener(v -> {
-            if (canvasView != null) {
-                canvasView.undo();
-            }
+            if (canvasView != null) canvasView.undo();
         });
 
         redoButton.setOnClickListener(v -> {
-            if (canvasView != null) {
-                canvasView.redo();
-            }
+            if (canvasView != null) canvasView.redo();
         });
 
+        if (importButton != null) {
+            importButton.setOnClickListener(v -> {
+                if (actionListener != null) actionListener.onImportImageRequested();
+            });
+        }
+
+        if (layersButton != null) {
+            layersButton.setOnClickListener(v -> {
+                if (actionListener != null) actionListener.onToggleLayersRequested();
+            });
+        }
+
         updateSizeDisplay(6f);
+    }
+
+    public void setOnToolbarActionListener(OnToolbarActionListener listener) {
+        this.actionListener = listener;
     }
 
     public void setToolManager(ToolManager manager) {
@@ -86,7 +108,7 @@ public class ToolbarView extends LinearLayout {
 
     private void adjustStrokeWidth(float delta) {
         if (toolManager == null || canvasView == null) return;
-        float newWidth = toolManager.getStrokeWidth() + delta;
+        float newWidth = Math.max(1f, toolManager.getStrokeWidth() + delta);
         toolManager.setStrokeWidth(newWidth);
         toolManager.applyToCanvas(canvasView);
         updateSizeDisplay(toolManager.getStrokeWidth());

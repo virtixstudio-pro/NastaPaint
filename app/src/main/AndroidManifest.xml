@@ -1,23 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.virtix.nastapaint">
 
+    <!-- Permissions d'accès aux fichiers et stockage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="NastaPaint"
+        android:label="Nasta Paint"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <!-- 1. Splash Screen (Point d'entrée principal) -->
         <activity
-            android:name=".CanvasActivity"
-            android:exported="true">
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 2. Écran de Bienvenue Premier Lancement -->
+        <activity
+            android:name=".ui.WelcomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 3. Écran d'Accueil / Galerie Projets -->
+        <activity
+            android:name=".ui.HomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- 4. Atelier / Canvas de Dessin -->
+        <activity
+            android:name=".ui.CanvasActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
     </application>
 
 </manifest>

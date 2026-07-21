@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F0F12"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bienvenue sur NastaPaint"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Conçu pour les créateurs exigeants. Structurez vos projets en Tomes, organisez vos Chapitres et donnez vie à vos histoires grâce à notre moteur de dessin et de mise en page intelligent."
+            android:textColor="#A0A0B0"
+            android:textSize="15sp"
+            android:lineSpacingExtra="4dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/txt_privacy_policy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="En continuant, vous acceptez notre politique de confidentialité et nos conditions d'utilisation."
+            android:textColor="#6200EE"
+            android:textSize="12sp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_welcome_skip"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="Passer"
+            android:textColor="#A0A0B0"
+            android:backgroundTint="#1F1F28" />
+
+        <Button
+            android:id="@+id/btn_welcome_start"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Commencer"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#6200EE" />
+
+    </LinearLayout>
+
+</RelativeLayout>

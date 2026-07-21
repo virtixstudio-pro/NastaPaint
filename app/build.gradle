@@ -10,8 +10,8 @@ android {
         applicationId "com.virtix.nastapaint"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        versionCode 8
+        versionName "1.0.7"
     }
 
     buildTypes {

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1A1A22"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎨 Configuration du Projet"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/edt_project_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/toolbar_bg"
+            android:hint="Titre de l'œuvre (ex: RAGE REFLEX)"
+            android:textColorHint="#606070"
+            android:textColor="#FFFFFF"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textSize="14sp"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type de structure :"
+            android:textColor="#A0A0B0"
+            android:textSize="12sp"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/radio_page_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📄 Page Seule / Illustration"
+                android:textColor="#FFFFFF"
+                android:checked="true" />
+
+            <RadioButton
+                android:id="@+id/radio_chapter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📖 Chapitre unique"
+                android:textColor="#FFFFFF" />
+
+            <RadioButton
+                android:id="@+id/radio_tome_series"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📚 Série complète en Tomes"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/layout_tome_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/edt_tome_count"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/toolbar_bg"
+                android:hint="Nombre de tomes (ex: 5)"
+                android:inputType="number"
+                android:textColorHint="#606070"
+                android:textColor="#FFFFFF"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/edt_chapters_per_tome"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/toolbar_bg"
+                android:hint="Chapitres par tome (ex: 7)"
+                android:inputType="number"
+                android:textColorHint="#606070"
+                android:textColor="#FFFFFF"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/edt_pages_per_chapter"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/toolbar_bg"
+                android:hint="Pages par chapitre (ex: 20)"
+                android:inputType="number"
+                android:textColorHint="#606070"
+                android:textColor="#FFFFFF"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm_create"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Créer et Ouvrir l'Atelier 🚀"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#6200EE"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+</ScrollView>
