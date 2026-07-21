@@ -3,28 +3,29 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0E0E12">
+    android:background="#121216">
 
-    <!-- MENUS DU HAUT (TEXTUELS) -->
+    <!-- BARRE SUPÉRIEURE EN TÊTE (PRO) -->
     <LinearLayout
         android:id="@+id/top_menu_bar"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
-        android:background="#18181E"
+        android:background="#1C1C24"
+        android:elevation="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
         <TextView
             android:id="@+id/menu_file"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Fichier"
+            android:text="≡ Fichier"
             android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Édition"
-            android:textColor="#CCCCCC"
+            android:textColor="#A0A0B0"
             android:textSize="14sp" />
 
         <TextView
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="Calques"
-            android:textColor="#CCCCCC"
+            android:textColor="#A0A0B0"
             android:textSize="14sp" />
 
         <View
@@ -50,18 +51,17 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <!-- BOUTON PLEIN ÉCRAN -->
         <TextView
             android:id="@+id/btn_fullscreen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#2A2A35"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:text="Plein Écran"
-            android:textColor="#4CAF50"
+            android:background="#2B2B38"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:text="⛶ Plein Écran"
+            android:textColor="#00E676"
             android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -74,13 +74,83 @@
         android:layout_above="@id/bottom_status_bar"
         android:layout_below="@id/top_menu_bar" />
 
-    <!-- BARRE DU BAS -->
+    <!-- DOCK D'OUTILS PRINCIPAL (FLOTTANT EN BAS) -->
+    <LinearLayout
+        android:id="@+id/dock_tools"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_above="@id/bottom_status_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:background="#CC1C1C24"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:id="@+id/btn_tool_pen"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="✏️"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/btn_tool_eraser"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="🧹"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="#333344" />
+
+        <TextView
+            android:id="@+id/btn_tool_undo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="↩️"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/btn_tool_redo"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="↪️"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:background="#333344" />
+
+        <TextView
+            android:id="@+id/btn_tool_clear"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="🗑️"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- BARRE DE STATUT (BAS) -->
     <LinearLayout
         android:id="@+id/bottom_status_bar"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="32dp"
         android:layout_alignParentBottom="true"
-        android:background="#18181E"
+        android:background="#181820"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="12dp"
@@ -91,8 +161,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Plume G • 8px"
-            android:textColor="#888888"
-            android:textSize="12sp" />
+            android:textColor="#8888A0"
+            android:textSize="11sp" />
 
         <View
             android:layout_width="0dp"
@@ -103,12 +173,12 @@
             android:id="@+id/txt_canvas_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Projet Actif"
-            android:textColor="#888888"
-            android:textSize="12sp" />
+            android:text="Planche Vabeir Studio"
+            android:textColor="#8888A0"
+            android:textSize="11sp" />
     </LinearLayout>
 
-    <!-- BOUTON FLOTTANT RESTAURATION (MASQUÉ PAR DÉFAUT) -->
+    <!-- BOUTON DU MODE IMMERSIF -->
     <TextView
         android:id="@+id/btn_restore_ui"
         android:layout_width="wrap_content"
@@ -116,9 +186,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="12dp"
-        android:background="#CC18181E"
+        android:background="#E61C1C24"
         android:padding="10dp"
-        android:text="👁 Menu"
+        android:text="👁 Afficher UI"
         android:textColor="#FFFFFF"
         android:textSize="12sp"
         android:textStyle="bold"

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 
 public class MangaCanvasView extends View {
@@ -18,15 +20,23 @@ public class MangaCanvasView extends View {
     private Paint drawPaint;
     private Paint canvasPaint;
 
-    private float lastX, lastY;
-    private static final float TOUCH_TOLERANCE = 4f;
+    // Matrice pour la gestion du Zoom et du Pan
+    private Matrix transformMatrix = new Matrix();
+    private Matrix inverseMatrix = new Matrix();
+    private ScaleGestureDetector scaleDetector;
+    private float scaleFactor = 1.0f;
+    private float focusX = 0f;
+    private float focusY = 0f;
+
+    private float lastTouchX, lastTouchY;
+    private boolean isMultiTouch = false;
 
     public MangaCanvasView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initDrawing();
+        init(context);
     }
 
-    private void initDrawing() {
+    private void init(Context context) {
         drawPath = new Path();
         drawPaint = new Paint();
         
@@ -38,6 +48,8 @@ public class MangaCanvasView extends View {
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
 
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+
+        scaleDetector = new ScaleGestureDetector(context, new ScaleListener());
     }
 
     @Override
@@ -53,63 +65,93 @@ public class MangaCanvasView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.save();
+        canvas.concat(transformMatrix); // Applique le Zoom/Pan au canevas
+        
         if (canvasBitmap != null) {
             canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         }
         canvas.drawPath(drawPath, drawPaint);
+        
+        canvas.restore();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float touchX = event.getX();
-        float touchY = event.getY();
+        scaleDetector.onTouchEvent(event);
+
+        int pointerCount = event.getPointerCount();
+        if (pointerCount > 1) {
+            isMultiTouch = true;
+            drawPath.reset();
+            invalidate();
+            return true;
+        }
+
+        // Convertit les coordonnées écran en coordonnées réelles sur le Bitmap
+        transformMatrix.invert(inverseMatrix);
+        float[] pts = new float[]{event.getX(), event.getY()};
+        inverseMatrix.mapPoints(pts);
+        float touchX = pts[0];
+        float touchY = pts[1];
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                isMultiTouch = false;
                 drawPath.reset();
                 drawPath.moveTo(touchX, touchY);
-                lastX = touchX;
-                lastY = touchY;
+                lastTouchX = touchX;
+                lastTouchY = touchY;
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                float dx = Math.abs(touchX - lastX);
-                float dy = Math.abs(touchY - lastY);
-                if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-                    drawPath.quadTo(lastX, lastY, (touchX + lastX) / 2, (touchY + lastY) / 2);
-                    lastX = touchX;
-                    lastY = touchY;
+                if (!isMultiTouch) {
+                    drawPath.quadTo(lastTouchX, lastTouchY, (touchX + lastTouchX) / 2, (touchY + lastTouchY) / 2);
+                    lastTouchX = touchX;
+                    lastTouchY = touchY;
                 }
                 break;
 
             case MotionEvent.ACTION_UP:
-                drawPath.lineTo(touchX, touchY);
-                if (drawCanvas != null) {
-                    drawCanvas.drawPath(drawPath, drawPaint);
+                if (!isMultiTouch) {
+                    drawPath.lineTo(touchX, touchY);
+                    if (drawCanvas != null) {
+                        drawCanvas.drawPath(drawPath, drawPaint);
+                    }
+                    drawPath.reset();
                 }
-                drawPath.reset();
+                isMultiTouch = false;
                 break;
-
-            default:
-                return false;
         }
 
         invalidate();
         return true;
     }
 
-    public void importBitmap(Bitmap importedBitmap) {
-        if (importedBitmap == null) return;
-        if (drawCanvas != null) {
-            drawCanvas.drawBitmap(importedBitmap, 0, 0, null);
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scaleFactor *= detector.getScaleFactor();
+            scaleFactor = Math.max(0.5f, Math.min(scaleFactor, 5.0f)); // Zoom entre 50% et 500%
+
+            focusX = detector.getFocusX();
+            focusY = detector.getFocusY();
+
+            transformMatrix.setScale(scaleFactor, scaleFactor, focusX, focusY);
             invalidate();
+            return true;
         }
     }
 
-    public void clearCanvas() {
-        if (drawCanvas != null) {
-            drawCanvas.drawColor(Color.WHITE);
-            invalidate();
+    public void setBrushSize(float size) {
+        drawPaint.setStrokeWidth(size);
+    }
+
+    public void setEraser(boolean isEraser) {
+        if (isEraser) {
+            drawPaint.setColor(Color.WHITE);
+        } else {
+            drawPaint.setColor(Color.BLACK);
         }
     }
 
