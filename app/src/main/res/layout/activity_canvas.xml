@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <View
+    <com.virtix.nastapaint.ui.views.MangaCanvasView
         android:id="@+id/mangaCanvasView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
