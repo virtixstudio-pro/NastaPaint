@@ -32,7 +32,7 @@ public class WelcomeActivity extends AppCompatActivity {
         prefs.edit().putBoolean(KEY_FIRST_LAUNCH, false).apply();
 
         // Rediriger vers l'écran d'accueil
-        Intent intent = new Intent(WelcomeActivity.class, HomeActivity.class);
+        Intent intent = new Intent(WelcomeActivity.this, HomeActivity.class);
         startActivity(intent);
         finish();
     }

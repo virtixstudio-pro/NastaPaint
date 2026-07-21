@@ -4,119 +4,26 @@
     android:layout_height="match_parent"
     android:background="#0A0A0D">
 
-    <!-- Barre supérieure : Projets, Nom, Export 8K -->
-    <LinearLayout
-        android:id="@+id/top_bar"
+    <include
+        android:id="@+id/toolbarView"
+        layout="@layout/view_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="#141419"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
 
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_revert" />
-
-        <TextView
-            android:id="@+id/txt_project_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Nasta Paint - Studio"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:paddingStart="12dp" />
-
-        <Button
-            android:id="@+id/btn_export_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:text="Export Ultra HD ⚡"
-            android:textSize="12sp"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#6200EE" />
-    </LinearLayout>
-
-    <!-- Zone principale de dessin -->
-    <FrameLayout
-        android:id="@+id/canvas_container"
+    <View
+        android:id="@+id/mangaCanvasView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/top_bar"
-        android:layout_above="@+id/bottom_palette"
-        android:background="#121216">
+        android:layout_below="@id/toolbarView"
+        android:background="#FFFFFF" />
 
-        <!-- Emplacement du moteur de dessin dynamique -->
-    </FrameLayout>
-
-    <!-- Barre d'outils flottante latérale (Gomme, Pinceaux, Plume Manga, Calques) -->
-    <LinearLayout
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/top_bar"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="12dp"
+    <FrameLayout
+        android:id="@+id/layerPanelView"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/toolbarView"
         android:background="#1F1F28"
-        android:orientation="vertical"
-        android:padding="4dp"
-        android:elevation="6dp">
-
-        <ImageButton
-            android:id="@+id/btn_tool_brush"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_edit" />
-
-        <ImageButton
-            android:id="@+id/btn_tool_eraser"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_delete" />
-
-        <ImageButton
-            android:id="@+id/btn_tool_layers"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_slideshow" />
-    </LinearLayout>
-
-    <!-- Palette de couleurs / Contrôle de taille inférieure -->
-    <LinearLayout
-        android:id="@+id/bottom_palette"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="#141419"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="8dp">
-
-        <View
-            android:id="@+id/current_color_indicator"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="#000000"
-            android:layout_marginEnd="12dp" />
-
-        <SeekBar
-            android:id="@+id/seekbar_brush_size"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:max="100"
-            android:progress="15" />
-    </LinearLayout>
-
+        android:visibility="gone" />
 </RelativeLayout>
