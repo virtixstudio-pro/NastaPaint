@@ -2,7 +2,7 @@ package com.virtix.nastapaint.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.os.Environment;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -22,6 +22,8 @@ public class CanvasActivity extends AppCompatActivity {
     private View topMenuBar;
     private View bottomStatusBar;
     private TextView btnRestoreUi;
+
+    private static final String APP_FOLDER_NAME = "Vabeir"; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +54,23 @@ public class CanvasActivity extends AppCompatActivity {
     private void showFileMenu(View anchorView) {
         PopupMenu popup = new PopupMenu(this, anchorView);
         popup.getMenu().add(0, 1, 0, "◄ Retour au menu principal");
-        popup.getMenu().add(0, 2, 1, "💾 Sauvegarder le projet");
-        popup.getMenu().add(0, 3, 2, "🖼 Enregistrer l'image (Export HD/4K/8K)...");
+        popup.getMenu().add(0, 2, 1, "💾 Sauvegarder le projet (.vpx)");
+        popup.getMenu().add(0, 3, 2, "🖼 Enregistrer l'image (Export 4K/8K)...");
+        popup.getMenu().add(0, 4, 3, "📖 Mode Lecteur Manga / Aperçu Planches");
 
         popup.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case 1:
-                    finish(); // Retour
+                    finish();
                     return true;
                 case 2:
                     saveProjectLocally();
                     return true;
                 case 3:
                     showExportOptionsDialog();
+                    return true;
+                case 4:
+                    openMangaReaderPreview();
                     return true;
                 default:
                     return false;
@@ -80,7 +86,7 @@ public class CanvasActivity extends AppCompatActivity {
         }
 
         try {
-            File projectsDir = new File(getFilesDir(), "projects");
+            File projectsDir = new File(getExternalFilesDir(null), "Projects");
             if (!projectsDir.exists()) projectsDir.mkdirs();
 
             String fileName = "project_" + System.currentTimeMillis() + ".vpx";
@@ -91,7 +97,7 @@ public class CanvasActivity extends AppCompatActivity {
             out.flush();
             out.close();
 
-            Toast.makeText(this, "Projet sauvegardé !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Projet sauvegardé dans : " + file.getName(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Erreur de sauvegarde", Toast.LENGTH_SHORT).show();
         }
@@ -101,7 +107,7 @@ public class CanvasActivity extends AppCompatActivity {
         String[] options = {"Full HD (1080p)", "Ultra HD (4K - 3840x2160)", "Master Manga (8K - 7680x4320)", "Format Brut Native"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Enregistrer l'image - Choisir la Résolution");
+        builder.setTitle("Enregistrer dans le dossier " + APP_FOLDER_NAME);
         builder.setItems(options, (dialog, which) -> {
             String selectedResolution = options[which];
             exportImageWithResolution(selectedResolution);
@@ -132,19 +138,30 @@ public class CanvasActivity extends AppCompatActivity {
 
         try {
             Bitmap scaled = Bitmap.createScaledBitmap(src, targetW, targetH, true);
-            File exportDir = new File(getExternalFilesDir(null), "Exports");
-            if (!exportDir.exists()) exportDir.mkdirs();
+            
+            File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            File appExportDir = new File(picturesDir, APP_FOLDER_NAME);
+            
+            if (!appExportDir.exists()) {
+                appExportDir.mkdirs();
+            }
 
-            File exportFile = new File(exportDir, "export_" + resolution.replaceAll(" ", "_") + "_" + System.currentTimeMillis() + ".png");
+            String fileName = "Export_" + resolution.replaceAll("[^a-zA-Z0-9]", "_") + "_" + System.currentTimeMillis() + ".png";
+            File exportFile = new File(appExportDir, fileName);
+
             FileOutputStream out = new FileOutputStream(exportFile);
             scaled.compress(Bitmap.CompressFormat.PNG, 100, out);
             out.flush();
             out.close();
 
-            Toast.makeText(this, "Exporté en " + resolution + " !\n" + exportFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Exporté dans Pictures/" + APP_FOLDER_NAME + "/" + fileName, Toast.LENGTH_LONG).show();
         } catch (Exception e) {
-            Toast.makeText(this, "Échec de l'exportation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Échec de l'exportation : " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void openMangaReaderPreview() {
+        Toast.makeText(this, "Chargement du lecteur de planches...", Toast.LENGTH_SHORT).show();
     }
 
     private void toggleFullScreen(boolean fullScreen) {
